@@ -665,7 +665,10 @@ def CalculateField (outFC, NWIField, cValue, Attributes):
     else:
         where_clause = "\"" + NWIField + "\" = '" + cValue + "'"
     Version = arcpy.GetInstallInfo("desktop").get("Version")
-    if float(Version) <= 10.0:
+    
+    from distutils.version import StrictVersion
+    
+    if StrictVersion(Version) <= StrictVersion('10.0'):
         # Create update cursor for feature class
         #
         rows = arcpy.UpdateCursor(outFC, where_clause)
